@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Vide Test</title>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://avplayer-cdn.sportradar.com/dist/latest/styles.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://avplayer-cdn.sportradar.com/dist/latest/avvpl-player.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="card" style="width: 18rem;">
+        <div class="card-img-top ratio ratio-16x9 bg-secondary">
+            <div id="video-container"></div>
+        </div>
+        <div class="card-body">
+            <div class="card-body">
+                <h5 class="card-title">Video Test</h5>
+                <p class="card-text">Try to toggle the fullscreen mode.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+  $.ajax({ url: 'https://bayer04leverkusen.spott2.sportradar.com/api/v2/content/327777/player-setting' }).then((config) => {
+    avvpl.setupPlayer({
+      ...config,
+      id: 'video-container'
+    }, avvplui)
+  })
+
+</script>
+</html>
