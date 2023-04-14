@@ -26,10 +26,27 @@
             </div>
         </div>
     </div>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-img-top ratio ratio-16x9 bg-secondary">
+            <video width="400" controls>
+                <source src="https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_1920_18MG.mp4" type="video/mp4">
+                <source src="https://file-examples.com/storage/fe7e1395d6643881797b91d/2020/03/file_example_WEBM_1920_3_7MB.webm" type="video/webm">
+                Your browser does not support HTML video.
+            </video>
+        </div>
+        <div class="card-body">
+            <div class="card-body">
+                <h5 class="card-title">Video Test</h5>
+                <p class="card-text">Try to toggle the fullscreen mode.</p>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 <script>
-  $.ajax({ url: 'https://bayer04leverkusen.spott2.sportradar.com/api/v2/content/327777/player-setting' }).then((config) => {
+  $.ajax({ url: 'https://tv.bayer04.de/api/v2/content/1520046/player-setting' }).then((config) => {
     avvpl.setupPlayer({
       ...config,
       id: 'video-container'
