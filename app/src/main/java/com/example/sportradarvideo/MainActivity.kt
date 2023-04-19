@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.widget.FrameLayout
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
@@ -17,7 +18,9 @@ class MainActivity : AppCompatActivity() {
         WebView.setWebContentsDebuggingEnabled(true)
 
         val frame = findViewById<ViewGroup>(R.id.frame)
-        val fullscreen = findViewById<ViewGroup>(R.id.fullscreen)
+        //val fullscreen = findViewById<ViewGroup>(R.id.fullscreen)
+        var customView: View? = null
+        var customCallback: WebChromeClient.CustomViewCallback? = null
 
         // https://developer.android.com/reference/android/webkit/WebChromeClient#onShowCustomView(android.view.View,%20android.webkit.WebChromeClient.CustomViewCallback)
         with(findViewById<WebView>(R.id.web_view)) {
@@ -25,18 +28,32 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
                     Log.d("FULLSCREEN", "enable")
+                    if (customView != null) {
+                        onHideCustomView()
+                    }
+
                     frame.visibility = View.INVISIBLE
-                    fullscreen.addView(view)
-                    fullscreen.visibility = View.VISIBLE
+                    customView = view
+                    (window.decorView as FrameLayout).addView(customView);
+                    // fullscreen.addView(view)
+                    // fullscreen.visibility = View.VISIBLE
                     // Why do we have to call this to make fullscreen work?
-                    callback?.onCustomViewHidden()
+                    //callback?.onCustomViewHidden()
                 }
 
                 override fun onHideCustomView() {
                     Log.d("FULLSCREEN", "disable")
                     frame.visibility = View.VISIBLE
-                    fullscreen.removeAllViews()
-                    fullscreen.visibility = View.INVISIBLE
+                    if (customView != null){
+                        (window.decorView as FrameLayout).removeView(customView);
+                        customView = null
+                    }
+                    if (customCallback != null) {
+                        customCallback?.onCustomViewHidden()
+                        customCallback = null;
+                    }
+                    //fullscreen.removeAllViews()
+                    //fullscreen.visibility = View.INVISIBLE
                 }
             }
 
